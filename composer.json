@@ -1,0 +1,11 @@
+{
+    "name": "sele/tekelanga",
+    "description": "E-commerce",
+    "authors": [
+        {
+            "name": "seleshabani",
+            "email": "seleshabani4@gmail.com"
+        }
+    ],
+    "require": {}
+}
