@@ -25,7 +25,7 @@ class Panier
     private $idclient;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime", length=255)
      */
     private $date_creation;
 

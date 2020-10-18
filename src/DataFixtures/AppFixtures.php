@@ -6,15 +6,17 @@ use App\Entity\Addresse;
 use App\Entity\Agent;
 use App\Entity\Categories;
 use App\Entity\Client;
+use App\Entity\Images;
 use App\Entity\Produit;
+use App\Entity\Stock;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 class AppFixtures extends Fixture
 {
     /**
-     *$faker Faker\Factory
-     */
+    *$faker Faker\Factory
+    */
     private $faker;
     public function load(ObjectManager $manager)
     {
@@ -25,6 +27,7 @@ class AppFixtures extends Fixture
         //$this->createClient($manager);
         //$this->createAgent($manager);
         //$this->createCategories($manager);
+        $this->createImages($manager);
         $manager->flush();
     }
     public function createClient(ObjectManager $manager)
@@ -80,9 +83,43 @@ class AppFixtures extends Fixture
     }
     public function createProduit(ObjectManager $manager)
     {
-        for ($i=0; $i < 100 ; $i++) { 
-            $produit = new Produit();
-            
+        $produitsData = require "produitsData.php";
+        $catRepo = $manager->getRepository(Categories::class);
+
+        foreach ($produitsData as $key => $value) {
+            $categorie = $catRepo->findOneByname($key);
+
+            for ($i=0; $i < count($value) ; $i++) { 
+                $produit = new Produit();
+                $produit->setNom($value[$i])
+                        ->setIdCategories($categorie);
+                $manager->persist($produit);
+            }
+        }
+    }
+    public function createStock(ObjectManager $manager)
+    {
+        $prodRepo = $manager->getRepository(Produit::class);
+        $produits = $prodRepo->findAll();
+
+        for ($i=0; $i < count($produits) ; $i++) { 
+            $stock = new Stock();
+            $stock->setIdProduit($produits[$i])
+                  ->setPrixUnitaire(random_int(500,100000))
+                  ->setQuantite(random_int(1,50))
+                  ->setPrixTotal($stock->getPrixUnitaire() * $stock->getQuantite());
+            $manager->persist($stock);
+        }
+    }
+    public function createImages(ObjectManager $manager)
+    {
+        for ($i=1; $i <= 15; $i++) { 
+            $produit = $manager->find(Produit::class,$i);
+            $image = new Images();
+            $image->setLabel("")
+                  ->setLocation($this->faker->imageUrl(224,173))
+                  ->setIdProduit($produit);
+            $manager->persist($image);
         }
     }
 }
