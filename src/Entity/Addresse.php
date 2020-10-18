@@ -35,6 +35,10 @@ class Addresse
      */
     private $quartier;
 
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $avenue;
     /**
      * @ORM\Column(type="string", length=4, nullable=true)
      */
@@ -123,7 +127,25 @@ class Addresse
 
         return $this;
     }
+    /**
+     * Get the value of quartier
+     */ 
+    public function getAvenue()
+    {
+        return $this->avenue;
+    }
 
+    /**
+     * Set the value of Avenue
+     *
+     * @return  self
+     */ 
+    public function setAvenue($avenue)
+    {
+        $this->avenue = $avenue;
+
+        return $this;
+    }
     /**
      * Get the value of numero
      */ 
