@@ -20,14 +20,14 @@ class AppFixtures extends Fixture
     private $faker;
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
         $this->faker = Factory::create();
-      //  $this->createAddresse($manager);
-        //$this->createClient($manager);
+        //$this->createAddresse($manager);
+         //$this->createClient($manager);
         //$this->createAgent($manager);
-        //$this->createCategories($manager);
-        $this->createImages($manager);
+         //$this->createCategories($manager);
+         //$this->createProduit($manager);
+         //$this->createStock($manager);
+        //$this->createImages($manager);
         $manager->flush();
     }
     public function createClient(ObjectManager $manager)
@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
     }
     public function createCategories(ObjectManager $manager)
     {
-        $categories = ["alimentaire","menager","enfants"];
+        $categories = ["alimentaire","menager","enfants","multimedia"];
         for ($i=0; $i < count($categories) ; $i++) { 
             $categorie = new Categories();
             $categorie->setNom($categories[$i]);
@@ -106,8 +106,10 @@ class AppFixtures extends Fixture
             $stock = new Stock();
             $stock->setIdProduit($produits[$i])
                   ->setPrixUnitaire(random_int(500,100000))
-                  ->setQuantite(random_int(1,50))
-                  ->setPrixTotal($stock->getPrixUnitaire() * $stock->getQuantite());
+                  ->setStockInit(random_int(1,50))
+                  ->setStockRest($stock->getStockInit())
+                  ->setTotalStockInit($stock->getPrixUnitaire() * $stock->getStockInit())
+                  ->setTotalStockRest($stock->getTotalStockInit());
             $manager->persist($stock);
         }
     }

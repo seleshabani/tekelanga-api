@@ -20,9 +20,16 @@ class Stock
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     *  @ORM\Column(type="integer")
+     * la quantité initial
      */
-    private $quantite;
+    private $stockInit;
+
+    /**
+     * @ORM\Column(type="integer")
+     * la quantité restante en stock
+     */
+    private $stockRest;
 
     /**
      * @ORM\Column(type="integer")
@@ -31,9 +38,16 @@ class Stock
 
     /**
      * @ORM\Column(type="integer")
+     * Répresente le total du stock initial
      */
-    private $prix_total;
+    private $totalStockInit;
 
+    /**
+     * @ORM\Column(type="integer")
+     * Répresente le total du stock restant
+     */
+    private $totalStockRest;
+    
     /**
      * @ORM\OneToOne(targetEntity=Produit::class, inversedBy="stock", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
@@ -45,14 +59,14 @@ class Stock
         return $this->id;
     }
 
-    public function getQuantite(): ?int
+    public function getStockRest(): ?int
     {
-        return $this->quantite;
+        return $this->stockRest;
     }
 
-    public function setQuantite(int $quantite): self
+    public function setStockRest(int $stockRest): self
     {
-        $this->quantite = $quantite;
+        $this->stockRest = $stockRest;
 
         return $this;
     }
@@ -69,14 +83,14 @@ class Stock
         return $this;
     }
 
-    public function getPrixTotal(): ?int
+    public function getTotalStockInit(): ?int
     {
-        return $this->prix_total;
+        return $this->totalStockInit;
     }
 
-    public function setPrixTotal(int $prix_total): self
+    public function setTotalStockInit(int $totalStockInit): self
     {
-        $this->prix_total = $prix_total;
+        $this->totalStockInit = $totalStockInit;
 
         return $this;
     }
@@ -89,6 +103,46 @@ class Stock
     public function setIdProduit(Produit $idProduit): self
     {
         $this->idProduit = $idProduit;
+
+        return $this;
+    }
+
+    /**
+     * Get la quantité initial
+     */ 
+    public function getStockInit()
+    {
+        return $this->stockInit;
+    }
+
+    /**
+     * Set la quantité initial
+     *
+     * @return  self
+     */ 
+    public function setStockInit($stockInit)
+    {
+        $this->stockInit = $stockInit;
+
+        return $this;
+    }
+
+    /**
+     * Get répresente le total du stock restant
+     */ 
+    public function getTotalStockRest()
+    {
+        return $this->totalStockRest;
+    }
+
+    /**
+     * Set répresente le total du stock restant
+     *
+     * @return  self
+     */ 
+    public function setTotalStockRest($totalStockRest)
+    {
+        $this->totalStockRest = $totalStockRest;
 
         return $this;
     }

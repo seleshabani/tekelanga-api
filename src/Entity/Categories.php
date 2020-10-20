@@ -7,9 +7,20 @@ use App\Repository\CategoriesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Controller\ProduitsByCategorie;
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  itemOperations={
+ *      "get",
+ *      "put",
+ *      "delete",
+ *      "getPostsByCategorie"={
+ *          "method"="GET",
+ *          "path"="/categories/{id}/posts",
+ *          "controller"=ProduitsByCategorie::class,
+ *        }
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=CategoriesRepository::class)
  */
 class Categories
@@ -87,7 +98,7 @@ class Categories
 
         return $this;
     }
-
+    
     public function removeProduit(Produit $produit): self
     {
         if ($this->Produits->contains($produit)) {
@@ -97,7 +108,6 @@ class Categories
                 $produit->setIdCategories(null);
             }
         }
-
         return $this;
     }
 }
