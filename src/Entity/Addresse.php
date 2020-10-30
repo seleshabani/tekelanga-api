@@ -4,11 +4,28 @@ namespace App\Entity;
 
 use App\Entity\Client;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ClientRepository;
+use App\Repository\AddresseRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(collectionOperations={
+ *                  "get"= {
+ *                      "normalization_context"={"groups"={"user_read"}}
+ *                  },
+ *                  "post" = {
+ *                      "normalization_context"={"groups"={"user_read"}}
+ *                  }                 
+ *               },itemOperations={
+ *                   "get"= {
+ *                      "normalization_context"={"groups"={"u_single_read"}}
+ *                  },
+ *                  "post" = {
+ *                      "normalization_context"={"groups"={"u_read"}}
+ *                  },
+ *                    "put",
+ *                    "delete",
+ *                 })
  * @ORM\Entity(repositoryClass=AddresseRepository::class)
  */
 class Addresse
@@ -17,30 +34,36 @@ class Addresse
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_read","user_single_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"user_read","user_single_read"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=100)
+     *  @Groups({"user_read","user_single_read"})
      */
     private $commune;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"user_read","user_single_read"})
      */
     private $quartier;
 
      /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"user_read","user_single_read"})
      */
     private $avenue;
     /**
      * @ORM\Column(type="string", length=4, nullable=true)
+     * @Groups({"user_read","user_single_read"})
      */
     private $numero;
 
@@ -172,6 +195,6 @@ class Addresse
      */ 
     public function getClients()
     {
-        return $this->clients;
+      //git   return $this->clients;
     }
 }

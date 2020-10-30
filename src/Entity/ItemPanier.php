@@ -7,7 +7,6 @@ use App\Repository\ItemPanierRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=ItemPanierRepository::class)
  */
 class ItemPanier

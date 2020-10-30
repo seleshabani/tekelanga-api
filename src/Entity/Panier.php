@@ -2,12 +2,25 @@
 
 namespace App\Entity;
 
-use App\Repository\PanierRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\AddUserBaskets;
+use App\Repository\PanierRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
+ * @ApiResource(
+ *   itemOperations={
+ *      "get",
+ *      "put",
+ *      "delete",
+ *      "add_basket_items"={
+ *          "method"="POST",
+ *          "path"="/panier/addForUser",
+ *          "controller"=AddUserBaskets::class,
+ *        }
+ *  })
  * @ORM\Entity(repositoryClass=PanierRepository::class)
  */
 class Panier
@@ -53,6 +66,11 @@ class Panier
      * @ORM\OneToMany(targetEntity=ItemPanier::class, mappedBy="idPanier", orphanRemoval=true)
      */
     private $itemPaniers;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $secret;
 
     public function __construct()
     {
@@ -163,6 +181,18 @@ class Panier
                 $itemPanier->setIdPanier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSecret(): ?string
+    {
+        return $this->secret;
+    }
+
+    public function setSecret(string $secret): self
+    {
+        $this->secret = $secret;
 
         return $this;
     }

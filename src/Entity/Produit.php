@@ -122,7 +122,7 @@ class Produit
                 $image->setIdProduit(null);
             }
         }
-
+        
         return $this;
     }
 }
