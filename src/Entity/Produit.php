@@ -83,13 +83,14 @@ class Produit
         return $this->stock;
     }
 
-    public function setStock(Stock $stock): self
+    public function setStock(?Stock $stock): self
     {
         $this->stock = $stock;
 
-        // set the owning side of the relation if necessary
-        if ($stock->getIdProduit() !== $this) {
-            $stock->setIdProduit($this);
+        // set (or unset) the owning side of the relation if necessary
+        $newIdProduit = null === $stock ? null : $this;
+        if ($stock->getIdProduit() !== $newIdProduit) {
+            $stock->setIdProduit($newIdProduit);
         }
 
         return $this;
@@ -122,7 +123,7 @@ class Produit
                 $image->setIdProduit(null);
             }
         }
-        
+
         return $this;
     }
 }

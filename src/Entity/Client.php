@@ -53,7 +53,7 @@ class Client
 
     public function __construct()
     {
-        $this->paniers = new ArrayCollection();
+      // $this->paniers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,34 +121,34 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|Panier[]
-     */
-    public function getDateCreation(): Collection
-    {
-        return $this->paniers;
-    }
+    // /**
+    //  * @return Collection|Panier[]
+    //  */
+    // public function getPanier(): Collection
+    // {
+    //     return $this->paniers;
+    // }
 
-    public function addDateCreation(Panier $dateCreation): self
-    {
-        if (!$this->paniers->contains($dateCreation)) {
-            $this->paniers[] = $dateCreation;
-            $dateCreation->setIdclient($this);
-        }
+    // public function addPanier(Panier $Panier): self
+    // {
+    //     if (!$this->paniers->contains($Panier)) {
+    //         $this->paniers[] = $Panier;
+    //         $Panier->setIdclient($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeDateCreation(Panier $dateCreation): self
-    {
-        if ($this->paniers->contains($dateCreation)) {
-            $this->paniers->removeElement($dateCreation);
-            // set the owning side to null (unless already changed)
-            if ($dateCreation->getIdclient() === $this) {
-                $dateCreation->setIdclient(null);
-            }
-        }
+    // public function removePanier(Panier $Panier): self
+    // {
+    //     if ($this->paniers->contains($Panier)) {
+    //         $this->paniers->removeElement($Panier);
+    //         // set the owning side to null (unless already changed)
+    //         if ($Panier->getIdclient() === $this) {
+    //             $Panier->setIdclient(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

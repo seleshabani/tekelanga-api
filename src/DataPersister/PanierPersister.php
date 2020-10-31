@@ -28,8 +28,19 @@ class PanierPersister implements DataPersisterInterface
      * @return object|void Void will not be supported in API Platform 3, an object should always be returned
      */
     public function persist($data){
-        
-       // dd($data);
+        $data->setValide(false);
+        $client = $data->getidclient();
+        $clientNom = $client->getNom();
+        $clientTel = $client->getTelephone();
+        $clientMail = $client->getMail();
+        $nomlen = strlen($clientNom);
+        $tellen = strlen($clientTel);
+        $maillen = strlen($clientMail);
+
+        $secret = substr($clientNom,-$nomlen,3) . substr($clientTel,-$tellen,3) . substr($clientMail,-$maillen,3);
+        $data->setSecret(trim($secret));
+        $this->em->persist($data);
+        $this->em->flush();
     }
 
     /**

@@ -107,40 +107,24 @@ class Stock
         return $this;
     }
 
-    /**
-     * Get la quantité initial
-     */ 
-    public function getStockInit()
+    public function getStockInit(): ?int
     {
         return $this->stockInit;
     }
 
-    /**
-     * Set la quantité initial
-     *
-     * @return  self
-     */ 
-    public function setStockInit($stockInit)
+    public function setStockInit(int $stockInit): self
     {
         $this->stockInit = $stockInit;
 
         return $this;
     }
 
-    /**
-     * Get répresente le total du stock restant
-     */ 
-    public function getTotalStockRest()
+    public function getTotalStockRest(): ?int
     {
         return $this->totalStockRest;
     }
 
-    /**
-     * Set répresente le total du stock restant
-     *
-     * @return  self
-     */ 
-    public function setTotalStockRest($totalStockRest)
+    public function setTotalStockRest(int $totalStockRest): self
     {
         $this->totalStockRest = $totalStockRest;
 

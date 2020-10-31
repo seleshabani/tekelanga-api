@@ -33,7 +33,7 @@ class ClientPersister implements DataPersisterInterface
        if ($result != null) {
           return $result;
        }else{
-           $data->setIdAddress($data->getIdAddress());
+           //$data->setIdAddress($data->getIdAddress());
            $this->em->persist($data);
            $this->em->flush();
        }

@@ -98,7 +98,7 @@ class Categories
 
         return $this;
     }
-    
+
     public function removeProduit(Produit $produit): self
     {
         if ($this->Produits->contains($produit)) {
@@ -108,6 +108,7 @@ class Categories
                 $produit->setIdCategories(null);
             }
         }
+
         return $this;
     }
 }

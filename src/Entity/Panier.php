@@ -33,12 +33,12 @@ class Panier
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="date_creation")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="paniers")
      */
     private $idclient;
 
     /**
-     * @ORM\Column(type="datetime", length=255)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_creation;
 
@@ -63,7 +63,7 @@ class Panier
     private $valide;
 
     /**
-     * @ORM\OneToMany(targetEntity=ItemPanier::class, mappedBy="idPanier", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ItemPanier::class, mappedBy="idPanier", orphanRemoval=true,cascade={"persist"})
      */
     private $itemPaniers;
 
@@ -94,12 +94,12 @@ class Panier
         return $this;
     }
 
-    public function getDateCreation(): ?string
+    public function getDateCreation(): ?\DateTimeInterface
     {
         return $this->date_creation;
     }
 
-    public function setDateCreation(string $date_creation): self
+    public function setDateCreation(?\DateTimeInterface $date_creation): self
     {
         $this->date_creation = $date_creation;
 

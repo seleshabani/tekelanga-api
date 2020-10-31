@@ -152,4 +152,16 @@ class Agent
 
         return $this;
     }
+
+    public function getIdAddresse(): ?Addresse
+    {
+        return $this->idAddresse;
+    }
+
+    public function setIdAddresse(?Addresse $idAddresse): self
+    {
+        $this->idAddresse = $idAddresse;
+
+        return $this;
+    }
 }
