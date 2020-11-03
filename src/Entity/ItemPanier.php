@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ItemPanierRepository;
+use App\Controller\TopProducts;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ItemPanierRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource(collectionOperations={
+ *      "get",
+ *      "post",
+ *      "getTop"={
+ *          "method"="GET",
+ *          "path"="/top_produits/",
+ *          "controller"=TopProducts::class   
+ *      }
+ * })
  * @ORM\Entity(repositoryClass=ItemPanierRepository::class)
  */
 class ItemPanier

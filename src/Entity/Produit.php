@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use App\Repository\ProduitRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProduitRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -40,7 +41,8 @@ class Produit
     private $stock;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="idProduit")
+     * @ORM\OneToOne(targetEntity=Images::class, mappedBy="idProduit")
+     * @ApiProperty(readable=true)
      */
     private $images;
 
@@ -97,32 +99,21 @@ class Produit
     }
 
     /**
-     * @return Collection|Images[]
-     */
-    public function getImages(): Collection
+     * Get the value of images
+     */ 
+    public function getImages()
     {
         return $this->images;
     }
 
-    public function addImage(Images $image): self
+    /**
+     * Set the value of images
+     *
+     * @return  self
+     */ 
+    public function setImages(Images $images)
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setIdProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Images $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getIdProduit() === $this) {
-                $image->setIdProduit(null);
-            }
-        }
+        $this->images = $images;
 
         return $this;
     }

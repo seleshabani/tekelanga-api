@@ -19,22 +19,16 @@ class ItemPanierRepository extends ServiceEntityRepository
         parent::__construct($registry, ItemPanier::class);
     }
 
-    // /**
-    //  * @return ItemPanier[] Returns an array of ItemPanier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+     * @return ItemPanier[] Returns an array of ItemPanier objects
+     */
+    public function findByTop() : array
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT count(i.idProduit) as nbr,p FROM App\Entity\itemPanier i JOIN App\Entity\Produit p WHERE i.idProduit = p GROUP BY i.idProduit");
+        $query->setMaxResults(3);
+        return $query->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?ItemPanier
