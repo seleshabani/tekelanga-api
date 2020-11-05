@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\AgentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AgentRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource()
+ * @ApiFIlter(SearchFilter::class,properties={"mail":"exact","password":"exact"})
  * @ORM\Entity(repositoryClass=AgentRepository::class)
  */
 class Agent
@@ -40,6 +43,11 @@ class Agent
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mail;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
 
     /**
      * @ORM\ManyToOne(targetEntity=Addresse::class)
@@ -119,6 +127,17 @@ class Agent
     {
         $this->idAddresse = $idAddresse;
 
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password): self
+    {
+        $this->password = password_hash($password,PASSWORD_BCRYPT);
         return $this;
     }
 

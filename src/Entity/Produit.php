@@ -48,7 +48,7 @@ class Produit
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
+        //$this->images = new ArrayCollection();
     }
 
     public function getId(): ?int

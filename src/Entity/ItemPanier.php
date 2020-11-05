@@ -35,7 +35,7 @@ class ItemPanier
     private $idPanier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produit::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Produit::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $idProduit;

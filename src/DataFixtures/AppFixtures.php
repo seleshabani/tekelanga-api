@@ -22,12 +22,12 @@ class AppFixtures extends Fixture
     {
         $this->faker = Factory::create();
         //$this->createAddresse($manager);
-         //$this->createClient($manager);
-        //$this->createAgent($manager);
-         //$this->createCategories($manager);
+        //$this->createClient($manager);
+        // $this->createAgent($manager);
+        //$this->createCategories($manager);
          //$this->createProduit($manager);
          //$this->createStock($manager);
-        //$this->createImages($manager);
+         $this->createImages($manager);
         $manager->flush();
     }
     public function createClient(ObjectManager $manager)
@@ -64,10 +64,12 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 20 ; $i++) { 
             $agent = new Agent();
             $addresse = $manager->find(Addresse::class,(2 + $i));
+           // $password = $agent->getMail().
             $agent->setNom($this->faker->name)
                     ->setSexe($sexeArr[random_int(0,1)])
                     ->setTelephone(substr($this->faker->e164PhoneNumber,0,10))
                     ->setMail($this->faker->email)
+                    ->setPassword("1234")
                     ->setIdAddress($addresse);
             $manager->persist($agent);
         }
