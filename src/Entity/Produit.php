@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProduitRepository;
+use App\Controller\GetProductsWithImages;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -12,7 +13,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(collectionOperations={
+ *                  "get",
+ *                  "post",
+ *                  "getwithimages"={
+ *                      "method"="GET",
+ *                      "path"="/produits_withimages",
+ *                      "controller"=GetProductsWithImages::class,
+ *                  }
+ * 
+ * })
  * @ApiFIlter(SearchFilter::class,properties={"nom":"word_start"})
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
  */
@@ -36,7 +46,7 @@ class Produit
     private $idCategories;
 
     /**
-     * @ORM\OneToOne(targetEntity=Stock::class, mappedBy="idProduit", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Stock::class, mappedBy="idProduit", cascade={"remove"})
      */
     private $stock;
 

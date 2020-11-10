@@ -19,14 +19,14 @@ class PanierRepository extends ServiceEntityRepository
         parent::__construct($registry, Panier::class);
     }
 
-    // /**
-    //  * @return Panier[] Returns an array of Panier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Panier[] Returns an array of Panier objects
+     */
+    
+    public function findByValide($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.valide = :val')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
@@ -34,7 +34,14 @@ class PanierRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    public function findBySecret($secret,$tel)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT p FROM App\Entity\Panier p JOIN App\Entity\Client c WHERE p.secret = :s And c.telephone = :t");
+        $query->setParameters([":s"=>$secret,":t"=>$tel]);
+        $query->setMaxResults(1);
+        return $query->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Panier

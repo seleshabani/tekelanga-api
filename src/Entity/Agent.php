@@ -2,17 +2,26 @@
 
 namespace App\Entity;
 
+use App\Controller\LoginAgent;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AgentRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
- * @ApiFIlter(SearchFilter::class,properties={"mail":"exact","password":"exact"})
+ * @ApiResource(collectionOperations={
+ *                  "get",
+ *                  "post",
+ *                  "Agentlogin"={
+ *                      "method"="GET",
+ *                      "path"="/agents_login",
+ *                      "controller"=LoginAgent::class,
+ *                  }
+ * })
+ * @ApiFIlter(SearchFilter::class,properties={"mail":"exact"})
  * @ORM\Entity(repositoryClass=AgentRepository::class)
  */
 class Agent

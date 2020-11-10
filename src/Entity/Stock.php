@@ -2,12 +2,21 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\StockRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StockRepository;
+use App\Controller\GetStockProducts;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * @ApiResource()
+ * @ApiResource(collectionOperations={
+ *              "get",
+ *              "post",
+ *              "getwithproducts"={
+ *                  "method"="GET",
+ *                  "path"="/stocks_withproducts",
+ *                  "controller"=GetStockProducts::class,
+ *              }
+ * })
  * @ORM\Entity(repositoryClass=StockRepository::class)
  */
 class Stock

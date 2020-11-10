@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Controller\TopProducts;
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\AddPanierItem;
+use App\Controller\GetUserByProducts;
 use App\Repository\ItemPanierRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -15,6 +17,16 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *          "method"="GET",
  *          "path"="/top_produits/",
  *          "controller"=TopProducts::class   
+ *      },
+ *      "addPanierItem"={
+ *          "method"="POST",
+ *          "path"="/add_item_panier",
+ *          "controller"=AddPanierItem::class   
+ *      },
+ *      "getByClients"={
+ *          "method"="GET",
+ *          "path"="/item_panier_byclients",
+ *          "controller"=GetUserByProducts::class,
  *      }
  * })
  * @ORM\Entity(repositoryClass=ItemPanierRepository::class)

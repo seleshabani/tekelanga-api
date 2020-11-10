@@ -3,8 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\GetTotalVente;
 use App\Controller\AddUserBaskets;
+use App\Controller\GetSinglePanier;
+use App\Controller\validateBaskets;
 use App\Repository\PanierRepository;
+use App\Controller\InvalidateBaskets;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,8 +23,31 @@ use Doctrine\Common\Collections\ArrayCollection;
  *          "method"="POST",
  *          "path"="/panier/addForUser",
  *          "controller"=AddUserBaskets::class,
- *        }
- *  })
+ *        },
+ *      },collectionOperations={
+ *          "post",
+ *          "get",
+ *          "invalidate_baskets":{
+ *              "method"="GET",
+ *              "path"="/paniers_invalide",
+ *              "controller"=InvalidateBaskets::class,
+ *          },
+ *          "validate_baskets":{
+ *              "method"="GET",
+ *               "path"="/paniers_valide",
+ *               "controller"=validateBaskets::class,
+ *          },
+ *          "totalVentes":{
+ *              "method"="GET",
+ *               "path"="/paniers_totalVentes",
+ *               "controller"=GetTotalVente::class,
+ *           },
+ *          "get_SinglenonValide"={
+ *          "method"="GET",
+ *          "path"="/paniers/tel/secret",
+ *          "controller"=GetSinglePanier::class,  
+ *        },
+ *    })
  * @ORM\Entity(repositoryClass=PanierRepository::class)
  */
 class Panier
@@ -38,7 +65,7 @@ class Panier
     private $idclient;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true,options={"default"="now()"})
      */
     private $date_creation;
 

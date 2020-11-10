@@ -28,7 +28,7 @@ class PanierPersister implements DataPersisterInterface
      * @return object|void Void will not be supported in API Platform 3, an object should always be returned
      */
     public function persist($data){
-        $stockRepo = $this->em->getRepository(Stock::class);
+       // $stockRepo = $this->em->getRepository(Stock::class);
         $data->setValide(false);
         $client = $data->getidclient();
         $clientNom = $client->getNom();
@@ -37,22 +37,22 @@ class PanierPersister implements DataPersisterInterface
         $nomlen = strlen($clientNom);
         $tellen = strlen($clientTel);
         $maillen = strlen($clientMail);
-        $secret = substr($clientNom,-$nomlen,3) . substr($clientTel,-$tellen,3) . substr($clientMail,3,-$maillen). mt_rand(0,100);
+        $secret = substr($clientNom,-$nomlen,3) . substr($clientTel,-$tellen,3) . substr($clientMail,mt_rand(1,3),-$maillen). mt_rand(0,500);
         $data->setSecret(trim($secret));
 
-        $itemsPanier = $data->getItemPaniers();
+        //$itemsPanier = $data->getItemPaniers();
 
-        foreach ($itemsPanier as $item) {
+        // foreach ($itemsPanier as $item) {
 
-            $stock = $stockRepo->findOneByIdProduit($item->getIdProduit());
-            $qteRest = $stock->getStockRest();
-            $stockRest = $qteRest - $item->getQuantite();
-            $totalStockRestInit = $stock->getTotalStockRest();
-            $totalStockRest = $totalStockRestInit - ($item->getQuantite() * $stock->getPrixUnitaire());
-            $stock->setStockRest($stockRest);
-            $stock->setTotalStockRest($totalStockRest);
-            $this->em->persist($stock);
-        }
+        //     $stock = $stockRepo->findOneByIdProduit($item->getIdProduit());
+        //     $qteRest = $stock->getStockRest();
+        //     $stockRest = $qteRest - $item->getQuantite();
+        //     $totalStockRestInit = $stock->getTotalStockRest();
+        //     $totalStockRest = $totalStockRestInit - ($item->getQuantite() * $stock->getPrixUnitaire());
+        //     $stock->setStockRest($stockRest);
+        //     $stock->setTotalStockRest($totalStockRest);
+        //     $this->em->persist($stock);
+        // }
 
         $this->em->persist($data);
         $this->em->flush();
