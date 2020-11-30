@@ -85,10 +85,14 @@ class Panier
     private $idAgent;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true,options={"default"=false})
      */
     private $valide;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true,options={"default"=false})
+     */
+    private $livrer;
     /**
      * @ORM\OneToMany(targetEntity=ItemPanier::class, mappedBy="idPanier", orphanRemoval=true,cascade={"persist"})
      */
@@ -99,6 +103,7 @@ class Panier
      */
     private $secret;
 
+    
     public function __construct()
     {
         $this->itemPaniers = new ArrayCollection();
@@ -220,6 +225,26 @@ class Panier
     public function setSecret(string $secret): self
     {
         $this->secret = $secret;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of livrer
+     */ 
+    public function getLivrer()
+    {
+        return $this->livrer;
+    }
+
+    /**
+     * Set the value of livrer
+     *
+     * @return  self
+     */ 
+    public function setLivrer($livrer)
+    {
+        $this->livrer = $livrer;
 
         return $this;
     }

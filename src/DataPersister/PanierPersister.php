@@ -29,7 +29,7 @@ class PanierPersister implements DataPersisterInterface
      */
     public function persist($data){
        // $stockRepo = $this->em->getRepository(Stock::class);
-        $data->setValide(false);
+        //$data->setValide(false);
         $client = $data->getidclient();
         $clientNom = $client->getNom();
         $clientTel = $client->getTelephone();
@@ -37,8 +37,10 @@ class PanierPersister implements DataPersisterInterface
         $nomlen = strlen($clientNom);
         $tellen = strlen($clientTel);
         $maillen = strlen($clientMail);
-        $secret = substr($clientNom,-$nomlen,3) . substr($clientTel,-$tellen,3) . substr($clientMail,mt_rand(1,3),-$maillen). mt_rand(0,500);
-        $data->setSecret(trim($secret));
+        if($data->getSecret() == null){
+            $secret = substr($clientNom,-$nomlen,3) . substr($clientTel,-$tellen,3) . substr($clientMail,mt_rand(1,3),-$maillen). mt_rand(0,500);
+            $data->setSecret(trim($secret));
+        }
 
         //$itemsPanier = $data->getItemPaniers();
 

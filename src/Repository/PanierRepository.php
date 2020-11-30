@@ -34,11 +34,11 @@ class PanierRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    public function findBySecret($secret,$tel)
+    public function findBySecret($secret,$tel,$valide)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery("SELECT p FROM App\Entity\Panier p JOIN App\Entity\Client c WHERE p.secret = :s And c.telephone = :t");
-        $query->setParameters([":s"=>$secret,":t"=>$tel]);
+        $query = $em->createQuery("SELECT p FROM App\Entity\Panier p JOIN App\Entity\Client c WHERE p.secret = :s And c.telephone = :t And p.valide=:v");
+        $query->setParameters([":s"=>$secret,":t"=>$tel,":v"=>$valide]);
         $query->setMaxResults(1);
         return $query->getResult();
     }
